@@ -16,24 +16,17 @@ import coil.compose.AsyncImage
 import com.example.salvadormoramillan.ViewModel.HomeViewModel
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-<<<<<<< HEAD
 import androidx.compose.ui.graphics.Color
-=======
->>>>>>> 7726b1033a19f13def4bba227604ccbbfbe94f22
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun HomeScreen2(
-    viewModel: HomeViewModel = viewModel()
-    //OnAgregar : () -> Unit
+    viewModel: HomeViewModel = viewModel(),
+    OnAgregar : () -> Unit
 ) {
 
     val state by viewModel.homeState.collectAsState()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7726b1033a19f13def4bba227604ccbbfbe94f22
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -93,18 +86,13 @@ fun HomeScreen2(
                                 contentDescription = "Eliminar"
                             )
                         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 7726b1033a19f13def4bba227604ccbbfbe94f22
                     }
                 }
             }
         }
-<<<<<<< HEAD
         item {
             Button(
-                onClick = {},
+                onClick = { OnAgregar() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF27D21F)
                 ),
@@ -118,7 +106,5 @@ fun HomeScreen2(
                 )
             }
         }
-=======
->>>>>>> 7726b1033a19f13def4bba227604ccbbfbe94f22
     }
 }

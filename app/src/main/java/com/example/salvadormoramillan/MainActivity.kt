@@ -23,11 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SalvadorMoraMillanTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-<<<<<<< HEAD
-                    Navegacion()
-=======
-                    HomeScreen2()
->>>>>>> 7726b1033a19f13def4bba227604ccbbfbe94f22
+                 Navegacion()
                 }
             }
         }

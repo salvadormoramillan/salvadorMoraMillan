@@ -20,73 +20,148 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel(),
+    OnLogout : () -> Unit
 ) {
-
     val state by viewModel.homeState.collectAsState()
+
+    var nombre by remember { mutableStateOf("") }
+    var posicion by remember { mutableStateOf("") }
+    var nacionalidad by remember { mutableStateOf("") }
+    var imagen by remember { mutableStateOf("") }
+    var number by remember { mutableStateOf("") }
+
+    LaunchedEffect(state.selectedPlayer) {
+        state.selectedPlayer?.let { jugador ->
+            nombre = jugador.nombre
+            posicion = jugador.posicion
+            nacionalidad = jugador.nacionalidad
+            imagen = jugador.imagen
+            number = jugador.number.toString()
+        }
+    }
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(state.jugadores) { jugador ->
 
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(6.dp)
-            ) {
-                Column {
+        item {
+            Spacer(modifier = Modifier.height(32.dp))
+        }
 
-                    AsyncImage(
-                        model = jugador.imagen,
-                        contentDescription = jugador.nombre,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentScale = ContentScale.Crop
-                    )
+        item {
+            OutlinedTextField(
+                value = nombre,
+                onValueChange = { nombre = it },
+                label = { Text("Nombre") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+        item {
+            OutlinedTextField(
+                value = posicion,
+                onValueChange = { posicion = it },
+                label = { Text("Posición") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = jugador.nombre,
-                                style = MaterialTheme.typography.titleMedium
-                            )
+        item {
+            OutlinedTextField(
+                value = nacionalidad,
+                onValueChange = { nacionalidad = it },
+                label = { Text("Nacionalidad") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
-                            Text(
-                                text = jugador.nacionalidad,
-                                style = MaterialTheme.typography.bodyMedium
-                            )
+        item {
+            OutlinedTextField(
+                value = number,
+                onValueChange = { number = it },
+                label = { Text("Número") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
-                            Text(
-                                text = "N° ${jugador.number}",
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
+        item {
+            OutlinedTextField(
+                value = imagen,
+                onValueChange = { imagen = it },
+                label = { Text("URL de la imagen") },
+                placeholder = { Text("https://ejemplo.com/imagen.jpg") },
+                modifier = Modifier.fillMaxWidth()
 
-                        IconButton(
-                            onClick = {
-                                viewModel.Eliminarjugador(jugador.id)
-                            }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = "Eliminar"
-                            )
-                        }
+            )
+        }
+
+        item {
+            Button(
+                onClick = {
+                    val num = number.toIntOrNull() ?: 0
+                    if (state.selectedPlayer != null) {
+                        viewModel.editarJugador(
+                            id = state.selectedPlayer!!.id,
+                            nombre = nombre,
+                            posicion = posicion,
+                            nacionalidad = nacionalidad,
+                            imagen = imagen,
+                            number = num
+                        )
+                    } else {
+                        viewModel.agregarjugador(
+                            nombre = nombre,
+                            posicion = posicion,
+                            nacionalidad = nacionalidad,
+                            imagen = imagen,
+                            number = num
+                        )
                     }
-                }
+
+                    nombre = ""
+                    posicion = ""
+                    nacionalidad = ""
+                    imagen = ""
+                    number = ""
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    if (state.selectedPlayer != null) "Guardar cambios"
+                    else "Añadir jugador"
+                )
             }
         }
+        item {
+            Button(
+                onClick = {OnLogout()}){
+                Text("Salir")
+
+            }
+        }
+
+        state.error?.let {
+            item {
+                Text(
+                    text = it
+
+                )
+            }
+        }
+
+        state.success?.let {
+            item {
+                Text(
+                    text = it
+                )
+            }
+        }
+
+        item { Spacer(modifier = Modifier.height(16.dp)) }
     }
 }

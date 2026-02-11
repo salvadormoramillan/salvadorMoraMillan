@@ -52,8 +52,10 @@ fun LoginScreen(
     val loginState by viewModel.loginState.collectAsState()
 
     LaunchedEffect(loginState) {
-        if(loginState is LoginState.success){
+        if (loginState is LoginState.success) {
             OnLoginSuccess()
+        } else if (loginState is LoginState.Error) {
+            showErrorDialog = true
         }
     }
 

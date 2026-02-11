@@ -95,4 +95,30 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
+    fun editarJugador(id: String, nombre: String, posicion: String, nacionalidad: String, imagen: String, number: Int){
+        viewModelScope.launch {
+            _homeState.value = _homeState.value.copy(isLoading = true, error = null)
+
+            try{
+
+                val jugador = hashMapOf(
+                    "nombre" to nombre,
+                    "posicion" to posicion,
+                    "nacionalidad" to nacionalidad,
+                    "imagen" to imagen,
+                    "number" to number
+                )
+                collectio.document(id).set(jugador).await()
+                _homeState.value = _homeState.value.copy(success = "Jugador agregado con exito")
+
+                obtenerJugadores()
+
+                kotlinx.coroutines.delay(2000)
+                Limpiarmensage()
+
+            }catch (e : Exception){
+                _homeState.value = _homeState.value.copy(error = e.message)
+            }
+        }
+    }
 }
