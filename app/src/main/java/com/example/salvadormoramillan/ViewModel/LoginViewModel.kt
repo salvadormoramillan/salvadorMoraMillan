@@ -27,13 +27,3 @@ class LoginViewModel : ViewModel() {
             }
     }
 }
-/*
-https://github.com/salvadormoramillan/salvadorMoraMillan.git
-
-git init
-git remote add origin https://github.com/salvadormoramillan/Tienda_Virtual.git
-git pull origin main --allow-unrelated-histories
-git add .
-git commit -m "inicio"
-git push origin main
- */
