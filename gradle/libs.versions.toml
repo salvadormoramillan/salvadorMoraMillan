@@ -19,6 +19,7 @@ firebaseBom = "34.7.0"
 services = "4.4.4"
 lifecycleKtx = "2.8.7"
 coil = "2.5.0"
+material3Lint = "1.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

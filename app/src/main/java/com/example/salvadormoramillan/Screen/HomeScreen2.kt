@@ -19,8 +19,9 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HomeScreen(
+fun HomeScreen2(
     viewModel: HomeViewModel = viewModel()
+    //OnAgregar : () -> Unit
 ) {
 
     val state by viewModel.homeState.collectAsState()

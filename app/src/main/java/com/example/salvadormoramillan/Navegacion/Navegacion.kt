@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.salvadormoramillan.Screen.HomeScreen
 import com.example.salvadormoramillan.Screen.LoginScreen
 
 @Composable
@@ -13,7 +14,7 @@ fun Navegacion(){
 
     NavHost(
         navController = navController,
-        startDestination = Rutas.Login
+        startDestination = Rutas.Home
     ) {
         composable<Rutas.Login> {
             LoginScreen(
@@ -26,7 +27,7 @@ fun Navegacion(){
         }
 
         composable<Rutas.Home> {
-
+            HomeScreen()
         }
     }
 }

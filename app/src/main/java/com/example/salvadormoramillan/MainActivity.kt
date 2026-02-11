@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.salvadormoramillan.Navegacion.Navegacion
+import com.example.salvadormoramillan.Screen.HomeScreen
+import com.example.salvadormoramillan.Screen.HomeScreen2
 import com.example.salvadormoramillan.ui.theme.SalvadorMoraMillanTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SalvadorMoraMillanTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Navegacion()
+                    HomeScreen2()
                 }
             }
         }
